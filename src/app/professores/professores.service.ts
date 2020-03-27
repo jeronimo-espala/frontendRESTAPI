@@ -21,12 +21,28 @@ export class ProfessoresService {
   }
 
   loadByID(id) {
-    return this.http.get(`${this.API}detalhes/${id}`).pipe(take(1));
+    return this.http.get<Professor>(`${this.API}detalhes/${id}`).pipe(take(1));
   }
 
-  create(professor) {
+  
+
+  private create(professor) {
 
     return this.http.post(this.API, professor).pipe(take(1));
 
+  }
+
+  private update(professor) {
+
+    return this.http.put(`${this.API}`, professor).pipe(take(1));
+    
+  }
+
+  save(professor) {
+    if(professor.id) {
+      return this.update(professor);
+    }
+
+    return this.create(professor);
   }
 }

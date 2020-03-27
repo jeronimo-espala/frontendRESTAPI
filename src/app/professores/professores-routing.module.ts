@@ -1,3 +1,4 @@
+import { ProfessorResolverGuard } from './guards/professor-resolver.guard';
 import { ProfessoresFormComponent } from './professores-form/professores-form.component';
 import { ProfessoresListaComponent } from './professores-lista/professores-lista.component';
 import { NgModule } from '@angular/core';
@@ -9,10 +10,17 @@ const routes: Routes = [
     path: '', component: ProfessoresListaComponent
   },
   { 
-    path: 'novo', component: ProfessoresFormComponent
+    path: 'novo', component: ProfessoresFormComponent, 
+    resolve: {
+      professor: ProfessorResolverGuard
+    }
   },
   {
-    path: 'editar/:id', component: ProfessoresFormComponent
+    path: 'editar/:id', component: ProfessoresFormComponent,
+    resolve: {
+      professor: ProfessorResolverGuard
+    }
+
   }
 ];
 
