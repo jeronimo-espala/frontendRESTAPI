@@ -1,4 +1,4 @@
-import { delay, tap } from 'rxjs/operators';
+import { delay, tap, take } from 'rxjs/operators';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Professor } from './professor';
@@ -18,5 +18,11 @@ export class ProfessoresService {
       delay(2000),
       tap(console.log)
     );
+  }
+
+  create(professor) {
+
+    return this.http.post(this.API, professor).pipe(take(1));
+
   }
 }
