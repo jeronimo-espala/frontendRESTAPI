@@ -20,6 +20,10 @@ export class ProfessoresService {
     );
   }
 
+  loadByID(id) {
+    return this.http.get(`${this.API}detalhes/${id}`).pipe(take(1));
+  }
+
   create(professor) {
 
     return this.http.post(this.API, professor).pipe(take(1));

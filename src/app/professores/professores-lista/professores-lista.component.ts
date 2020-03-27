@@ -4,6 +4,7 @@ import { Observable, empty } from 'rxjs';
 import { Component, OnInit } from '@angular/core';
 import { Professor } from './../professor';
 import { catchError } from 'rxjs/operators';
+import { Router, ActivatedRoute } from '@angular/router';
 
 
 
@@ -17,7 +18,8 @@ export class ProfessoresListaComponent implements OnInit {
 
   professores$: Observable<Professor[]>
 
-  constructor(private service: ProfessoresService, private alertService: AlertModalService) { }
+  constructor(private service: ProfessoresService, private alertService: AlertModalService,
+    private router: Router, private route: ActivatedRoute) { }
 
   ngOnInit(): void {
 
@@ -42,6 +44,12 @@ export class ProfessoresListaComponent implements OnInit {
     //this.bsModalRef = this.modalService.show(AlertModalComponent);
     //this.bsModalRef.content.type = 'danger';
     //this.bsModalRef.content.message = 'Erro ao carregar alunos. Tenta novamente mais tarde.';
+  }
+
+  onEdit(id) {
+
+    this.router.navigate(['editar',id],{ relativeTo: this.route});
+
   }
 
 }

@@ -10,6 +10,9 @@ const routes: Routes = [
   },
   { 
     path: 'novo', component: ProfessoresFormComponent
+  },
+  {
+    path: 'editar/:id', component: ProfessoresFormComponent
   }
 ];
 
