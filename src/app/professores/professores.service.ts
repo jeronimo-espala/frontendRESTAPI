@@ -45,4 +45,10 @@ export class ProfessoresService {
 
     return this.create(professor);
   }
+
+  remove(matricula) {
+
+    return this.http.delete(`${this.API}${matricula}`).pipe(take(1));
+
+  }
 }

@@ -1,3 +1,4 @@
+import { Professor2Service } from './../professor2.service';
 import { AlertModalService } from './../../shared/alert-modal.service';
 import { ProfessoresService } from './../professores.service';
 import { Component, OnInit } from '@angular/core';
@@ -16,7 +17,7 @@ export class ProfessoresFormComponent implements OnInit {
   form: FormGroup;
   submitted = false;
 
-  constructor(private fb: FormBuilder, private service: ProfessoresService, private modal: AlertModalService,
+  constructor(private fb: FormBuilder, private service: Professor2Service, private modal: AlertModalService,
     private location: Location, private route: ActivatedRoute) { }
 
   ngOnInit(): void {
