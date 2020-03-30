@@ -1,53 +1,77 @@
-<form class="needs-validation" novalidate style="padding-top: 10px;">
-    <div class="form-row">
-        <div class="col-md-4 mb-3">
-            <label for="nome">Nome</label>
-            <input type="text" class="form-control" id="nome" placeholder="Nome" />
-        </div>
-
-
-        <div class="col-md-1 mb-1">
-            <label for="ativa">Ativa</label>
-            <input type="text" class="form-control" id="ativa" placeholder="Ativa" />
-        </div>
-
-        <div class="col-md-3 mb-1">
-            <label for="exampleFormControlSelect1">Professor</label>
-            <select class="form-control" id="exampleFormControlSelect1">
-                <option>TEXTO GRANDEEEEEE</option>
-                <option>2</option>
-                <option>3</option>
-                <option>4</option>
-                <option>5</option>
-            </select>
-        </div>
-
-        <div class="col-md-2 mb-3">
-            <label for="carga">Carga Horária (Hrs)</label>
-            <input type="number" class="form-control" id="carga" placeholder="Carga Horária" />
-
-        </div>
-
-
+<form class="needs-validation" novalidate [formGroup]="form" style="padding-top: 10px;">
+  <div class="form-row">
+    <div class="col-md-4 mb-3">
+      <label for="nome">Nome</label>
+      <input type="text" class="form-control" id="nome" placeholder="Nome" formControlName="nome"
+        [ngClass]="{ 'is-invalid': submitted && hasError('nome')}" />
+      <div class="invalid-feedback" *ngIf="hasError('nome') && hasError('nome')['required']">
+        Por favor informe um nome.
+      </div>
+      <div class="invalid-feedback" *ngIf="hasError('nome') && hasError('nome')['minlength']">
+        Nome precisa ter no mínimo {{ hasError('nome')['minlength'].requiredLength }} caracteres.
+      </div>
+      <div class="invalid-feedback" *ngIf="hasError('nome') && hasError('nome')['maxlength']">
+        Nome precisa ter no máximo {{ hasError('nome')['maxlength'].requiredLength }} caracteres.
+      </div>
     </div>
-    <div class="form-row">
 
-        <div class="col-md-7 mb-3">
-            <label for="descricao">Descrição</label>
-            <input type="text" class="form-control" id="descricao" placeholder="Descrição" />
-        </div>
-
-        
-
-        
-
+    <div class="col-md-3 mb-1">
+      <label for="professor">Professor</label>
+      <select class="form-control" id="professor" formControlName="professor"
+        [ngClass]="{ 'is-invalid': submitted && hasError('professor')}" [compareWith]="compararProfessores">
+        <option *ngFor="let professor of professores" [ngValue]="professor">{{ professor.nome }}</option>
+      </select>
+      <div class="invalid-feedback" *ngIf="hasError('professor') && hasError('professor')['required']">
+        Por favor informe um professor.
+      </div>
     </div>
-    <div>
-        <button type="submit" class="btn btn-secondary">
-            Salvar
-        </button>
-        <button type="button" class="btn btn-default">
-            Cancelar
-        </button>
+
+
+
+    <div class="col-md-2 mb-3">
+      <label for="cargaHoraria">Carga Horária (Hrs)</label>
+      <input type="number" class="form-control" id="cargaHoraria" placeholder="Carga Horária"
+        formControlName="cargaHoraria" [ngClass]="{ 'is-invalid': submitted && hasError('cargaHoraria')}" />
+      <div class="invalid-feedback" *ngIf="hasError('cargaHoraria') && hasError('cargaHoraria')['required']">
+        Por favor informe a carga horária.
+      </div>
     </div>
+
+
+  </div>
+  <div class="form-row">
+
+    <div class="col-md-9 mb-3">
+      <label for="descricao">Descrição</label>
+      <input type="text" class="form-control" id="descricao" placeholder="Descrição" formControlName="descricao"
+      [ngClass]="{ 'is-invalid': submitted && hasError('descricao')}"/>
+      <div class="invalid-feedback" *ngIf="hasError('descricao') && hasError('descricao')['required']">
+        Por favor informe uma descrição.
+      </div>
+      <div class="invalid-feedback" *ngIf="hasError('descricao') && hasError('descricao')['maxlength']">
+        Descrição precisa ter no máximo {{ hasError('descricao')['maxlength'].requiredLength }} caracteres.
+      </div>
+    </div>
+
+    <div class="col-md-4 mb-3">
+      <div class="checkbox">
+        <label class="checkbox-inline">
+          <input type="checkbox" formControlName="ativa"> Ativa
+        </label>
+      </div>
+    </div>
+
+
+  </div>
+
+
+
+  <div>
+    <button type="submit" class="btn btn-secondary" (click)="onSubmit()">
+      Salvar
+    </button>
+    <button type="button" class="btn btn-default">
+      Cancelar
+    </button>
+  </div>
 </form>

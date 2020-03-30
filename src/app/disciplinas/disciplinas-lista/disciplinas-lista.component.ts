@@ -2,8 +2,9 @@ import { AlertModalService } from './../../shared/alert-modal.service';
 import { DisciplinasService } from './../disciplinas.service';
 import { Disciplina } from './../disciplina';
 import { Component, OnInit } from '@angular/core';
-import { Observable, empty } from 'rxjs';
-import { catchError } from 'rxjs/operators';
+import { Observable, empty, EMPTY } from 'rxjs';
+import { catchError, take, switchMap } from 'rxjs/operators';
+import { Router, ActivatedRoute } from '@angular/router';
 
 
 
@@ -15,14 +16,17 @@ import { catchError } from 'rxjs/operators';
 })
 export class DisciplinasListaComponent implements OnInit {
 
-  disciplinas$: Observable<Disciplina[]>
+  disciplinas$: Observable<Disciplina[]>;
 
-  constructor(private service: DisciplinasService, private alertService: AlertModalService) { }
+  disciplinaSelecionada: Disciplina;
+
+  constructor(private service: DisciplinasService, private alertService: AlertModalService,
+    private router: Router, private route: ActivatedRoute) { }
 
   ngOnInit(): void {
 
     this.onRefresh();
-    
+
   }
 
   onRefresh() {
@@ -37,7 +41,37 @@ export class DisciplinasListaComponent implements OnInit {
       })
     )
   }
-  
+
+  onEdit(id) {
+
+    this.router.navigate(['editar',id],{ relativeTo: this.route});
+
+  }
+
+  onDelete(disciplina) {
+
+    this.disciplinaSelecionada = disciplina;
+    //this.deleteModalRef = this.modalService.show(this.deleteModal, {class: 'modal-sm'});
+    const result$ = this.alertService.showConfirm('Confirmação', 'Tem certeza que deseja remover?')
+    result$.asObservable()
+    .pipe(
+      take(1),
+      switchMap(result => result ? this.service.remove(disciplina.id) : EMPTY)
+    )
+    .subscribe(
+      success => {
+        this.onRefresh(),
+        this.alertService.showAlertSuccess('Disciplina excluida com sucesso')
+      },
+      error => {
+        this.alertService.showAlertDanger('Erro ao remover disciplina. Tente Novamente!')
+      }
+
+    )
+
+  }
+
+
   handleError(){
     this.alertService.showAlertDanger('Erro ao carregar alunos. Tenta novamente mais tarde.');
     //this.bsModalRef = this.modalService.show(AlertModalComponent);

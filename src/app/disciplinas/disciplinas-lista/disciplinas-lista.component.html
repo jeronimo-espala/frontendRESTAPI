@@ -27,11 +27,11 @@
           <td>{{ disciplina.cargaHoraria }} Hrs</td>
           <td>
             <span class="float-right">
-              <button class="btn btn-outline-warning mb-1 btn-sm">
+              <button class="btn btn-outline-warning mb-1 btn-sm" (click)="onEdit(disciplina.id)">
                 Atualizar
               </button>
 
-              <button class="btn btn-outline-danger mb-1 btn-sm">
+              <button class="btn btn-outline-danger mb-1 btn-sm" (click)="onDelete(disciplina)">
                 Remover
               </button>
             </span>
@@ -43,7 +43,7 @@
     <ng-template #loading>
       <span>Carregando Disciplinas...</span>
     </ng-template>
-  
+
 
    <!-- <ng-template #loadingError>
       <div *ngIf="error$ | async; else loading">

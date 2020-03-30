@@ -45,4 +45,10 @@ export class CrudService<T> {
     return this.http.delete(`${this.API_URL}${matricula}`).pipe(take(1));
 
   }
+
+  loadByName(nome) {
+
+    return this.http.get<T>(`${this.API_URL}detalhes/${nome}`);
+
+  }
 }

@@ -1,37 +1,76 @@
 <form class="needs-validation" novalidate [formGroup]="form" style="padding-top: 10px;">
-    <div class="form-row">
-        <div class="col-md-4 mb-3">
-            <label for="nome">Nome</label>
-            <input type="text" class="form-control" id="nome" placeholder="First name" />
-            <div class="valid-feedback">
-                Looks good!
-            </div>
-        </div>
-        <div class="col-md-4 mb-3">
-            <label for="CPF">CPF</label>
-            <input type="text" class="form-control" id="CPF" placeholder="CPF" />
-            <div class="valid-feedback">
-                Looks good!
-            </div>
-        </div>
-        <div class="col-md-2 mb-3">
-            <label for="data">Data Nascimento</label>
-            <input type="date" class="form-control" id="data" placeholder="Data Nascimento" />
-            <div class="valid-feedback">
-                Looks good!
-            </div>
+  <div class="form-row">
+    <div class="col-md-4 mb-3">
+      <label for="nome">Nome</label>
+      <input type="text" class="form-control" id="nome" placeholder="Nome" formControlName="nome"
+      [ngClass]="{ 'is-invalid': submitted && hasError('nome')}" />
+      <div class="invalid-feedback" *ngIf="hasError('nome') && hasError('nome')['required']">
+        Por favor informe um nome.
+      </div>
+      <div class="invalid-feedback" *ngIf="hasError('nome') && hasError('nome')['minlength']">
+        Nome precisa ter no mínimo {{ hasError('nome')['minlength'].requiredLength }} caracteres.
+      </div>
+      <div class="invalid-feedback" *ngIf="hasError('nome') && hasError('nome')['maxlength']">
+        Nome precisa ter no máximo {{ hasError('nome')['maxlength'].requiredLength }} caracteres.
+      </div>
+    </div>
+    <div class="col-md-4 mb-3">
+      <label for="cpf">CPF</label>
+      <input type="text" class="form-control" id="cpf" placeholder="CPF" formControlName="cpf"
+      [ngClass]="{ 'is-invalid': submitted && hasError('cpf')}"/>
+      <div class="invalid-feedback" *ngIf="hasError('cpf') && hasError('cpf')['required']">
+        Por favor informe um CPF.
+      </div>
+      <div class="invalid-feedback" *ngIf="hasError('cpf') && hasError('cpf')['minlength']">
+        CPF precisa ter no mínimo {{ hasError('cpf')['minlength'].requiredLength }} caracteres.
+      </div>
+      <div class="invalid-feedback" *ngIf="hasError('cpf') && hasError('cpf')['maxlength']">
+        CPF precisa ter no máximo {{ hasError('cpf')['maxlength'].requiredLength }} caracteres.
+      </div>
+    </div>
+    <div class="col-md-2 mb-3">
+      <label for="dataNascimento">Data Nascimento</label>
+      <input type="date" class="form-control" id="dataNascimento" placeholder="Data Nascimento"
+        formControlName="dataNascimento"  [ngClass]="{ 'is-invalid': submitted && hasError('dataNascimento')}" />
+        <div class="invalid-feedback" *ngIf="hasError('dataNascimento') && hasError('dataNascimento')['required']">
+          Por favor informe a data de nascimento.
         </div>
     </div>
-    <div class="form-row">
-        <div class="col-md-2 mb-3">
-            <label for="matricula">Matrícula</label>
-            <input type="text" class="form-control" id="matricula" placeholder="Matrícula">
-        </div>
-        <select class="custom-select custom-select-sm" multiple>
-            <option selected>Open this select menu</option>
-            <option value="1">One</option>
-            <option value="2">Two</option>
-            <option value="3">Three</option>
+  </div>
+
+  <div class="form-row">
+      <div class="col-md-4 mb-3">
+        <label for="matricula">Disciplinas</label>
+        <select class="custom-select custom-select-sm" multiple formControlName="disciplinas"
+         [compareWith]="compararDisciplinas" >
+          <option *ngFor="let disciplina of disciplinas" [ngValue]="disciplina">{{ disciplina.nome }}</option>
         </select>
+      </div>
+
+
+    <div class="col-md-2 mb-3">
+      <label for="matricula">Matrícula</label>
+      <input type="text" class="form-control" id="matricula" placeholder="Matrícula" formControlName="matricula"
+      [ngClass]="{ 'is-invalid': submitted && hasError('matricula')}">
+      <div class="invalid-feedback" *ngIf="hasError('matricula') && hasError('matricula')['required']">
+        Por favor informe uma matricula.
+      </div>
+      <div class="invalid-feedback" *ngIf="hasError('matricula') && hasError('matricula')['minlength']">
+        Matricula precisa ter no mínimo {{ hasError('matricula')['minlength'].requiredLength }} caracteres.
+      </div>
+      <div class="invalid-feedback" *ngIf="hasError('matricula') && hasError('matricula')['maxlength']">
+        Matricula precisa ter no máximo {{ hasError('matricula')['maxlength'].requiredLength }} caracteres.
+      </div>
     </div>
+
+  </div>
+  <div>
+    <button type="submit" class="btn btn-secondary" (click)="onSubmit()">
+      Salvar
+    </button>
+    <button type="button" class="btn btn-default">
+      Cancelar
+    </button>
+  </div>
+
 </form>
