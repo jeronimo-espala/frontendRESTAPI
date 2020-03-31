@@ -1,3 +1,4 @@
+import { Observable } from 'rxjs';
 import { Component, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
 
@@ -9,6 +10,7 @@ import { FormControl } from '@angular/forms';
 export class AlunosPesquisaComponent implements OnInit {
 
   queryField = new FormControl();
+  results$: Observable<any>;
 
   constructor() { }
 

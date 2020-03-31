@@ -5,7 +5,7 @@ import { CrudService } from './../../shared/crud-service';
 import { DisciplinasService } from './../disciplinas.service';
 import { Component, OnInit } from '@angular/core';
 import { Observable, empty } from 'rxjs';
-import { catchError, map, tap } from 'rxjs/operators';
+import { catchError, map, tap, switchMap } from 'rxjs/operators';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { Location } from '@angular/common';
@@ -18,7 +18,6 @@ import { Location } from '@angular/common';
 export class DisciplinasFormComponent implements OnInit {
 
   professores: any[];
-  //professores$: Observable<Professor>;
 
   form: FormGroup;
   submitted = false;
@@ -29,19 +28,8 @@ export class DisciplinasFormComponent implements OnInit {
 
   ngOnInit(): void {
 
-    this.service.listProf().
-     pipe(
-      map(professores => professores.map(p => ({
-        'id': p.id,
-        'nome': p.nome
-      }))),
-      tap(console.log)
-    ).
-    subscribe(dados => this.professores = dados);
 
-    //this.service.listProf().subscribe(dados => this.professores = dados);
-
-    //this.onRefresh();
+    this.onRefresh()
 
     const disciplina = this.route.snapshot.data['disciplina'];
 
@@ -52,23 +40,21 @@ export class DisciplinasFormComponent implements OnInit {
       descricao: [disciplina.descricao, [Validators.required,Validators.maxLength(200)]],
       cargaHoraria: [disciplina.cargaHoraria, [Validators.required]],
       ativa: [disciplina.ativa],
-      professor: [disciplina.Professor,[Validators.required]]
+      professor: [disciplina.professor,[Validators.required]]
     });
 
   }
 
-  /*onRefresh() {
-    this.professores$ = this.service.listProf()
-    .pipe(
-      catchError( error => {
-        console.error(error);
-        //this.error$.next(true);
-        this.handleError();
-        return empty();
-
-      })
-    )
-  }*/
+  onRefresh() {
+    this.service.listProf().
+     pipe(
+      map(professores => professores.map(p => ({
+        'id': p.id,
+        'nome': p.nome
+      }))),
+      tap(console.log)
+    ).subscribe(dados => this.professores = dados);
+  }
 
 
   setAtiva(){
@@ -103,12 +89,12 @@ export class DisciplinasFormComponent implements OnInit {
 
       console.log('submit');
 
-      let msgSuccess = 'Professor criado com sucesso';
-      let msgError = 'Erro ao criar professor curso, tente novamente!';
+      let msgSuccess = 'Disciplina criado com sucesso';
+      let msgError = 'Erro ao criar disciplina curso, tente novamente!';
 
       if(this.form.value.id) {
-        msgSuccess = 'Professor atualizado com sucesso';
-        msgError = 'Erro ao atualizar professor, tente novamente!';
+        msgSuccess = 'Disciplina atualizado com sucesso';
+        msgError = 'Erro ao atualizar disciplina, tente novamente!';
 
       }
 
@@ -124,17 +110,14 @@ export class DisciplinasFormComponent implements OnInit {
   }
 
   handleError(){
-    this.modal.showAlertDanger('Erro ao carregar professores. Tenta novamente mais tarde.');
-    //this.bsModalRef = this.modalService.show(AlertModalComponent);
-    //this.bsModalRef.content.type = 'danger';
-    //this.bsModalRef.content.message = 'Erro ao carregar alunos. Tenta novamente mais tarde.';
+    this.modal.showAlertDanger('Erro ao carregar alunos. Tenta novamente mais tarde.');
+
   }
 
   onCancel() {
 
     this.submitted = false;
     this.form.reset();
-    //console.log('onCancel');
   }
 
 }

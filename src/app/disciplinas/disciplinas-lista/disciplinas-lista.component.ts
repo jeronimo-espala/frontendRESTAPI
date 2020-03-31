@@ -3,7 +3,7 @@ import { DisciplinasService } from './../disciplinas.service';
 import { Disciplina } from './../disciplina';
 import { Component, OnInit } from '@angular/core';
 import { Observable, empty, EMPTY } from 'rxjs';
-import { catchError, take, switchMap } from 'rxjs/operators';
+import { catchError, take, switchMap, tap } from 'rxjs/operators';
 import { Router, ActivatedRoute } from '@angular/router';
 
 
@@ -34,7 +34,6 @@ export class DisciplinasListaComponent implements OnInit {
     .pipe(
       catchError( error => {
         console.error(error);
-        //this.error$.next(true);
         this.handleError();
         return empty();
 
@@ -56,12 +55,16 @@ export class DisciplinasListaComponent implements OnInit {
     result$.asObservable()
     .pipe(
       take(1),
-      switchMap(result => result ? this.service.remove(disciplina.id) : EMPTY)
+      //tap(console.log),
+      switchMap(result => result ? this.service.remove(disciplina.id) : EMPTY),
+      //tap(console.log)
     )
     .subscribe(
       success => {
-        this.onRefresh(),
-        this.alertService.showAlertSuccess('Disciplina excluida com sucesso')
+
+          this.onRefresh(),
+          this.alertService.showAlertSuccess('Disciplina excluida com sucesso')
+
       },
       error => {
         this.alertService.showAlertDanger('Erro ao remover disciplina. Tente Novamente!')
@@ -73,10 +76,7 @@ export class DisciplinasListaComponent implements OnInit {
 
 
   handleError(){
-    this.alertService.showAlertDanger('Erro ao carregar alunos. Tenta novamente mais tarde.');
-    //this.bsModalRef = this.modalService.show(AlertModalComponent);
-    //this.bsModalRef.content.type = 'danger';
-    //this.bsModalRef.content.message = 'Erro ao carregar alunos. Tenta novamente mais tarde.';
+    this.alertService.showAlertDanger('Erro ao carregar disciplinas. Tenta novamente mais tarde.');
   }
 
 }

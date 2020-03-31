@@ -5,7 +5,7 @@ import { ProfessoresService } from './../professores.service';
 import { Observable, empty, EMPTY } from 'rxjs';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { Professor } from './../professor';
-import { catchError, switchMap, take } from 'rxjs/operators';
+import { catchError, switchMap, take, tap } from 'rxjs/operators';
 import { Router, ActivatedRoute } from '@angular/router';
 
 
@@ -45,7 +45,7 @@ export class ProfessoresListaComponent implements OnInit {
       })
     )
   }
-  
+
   handleError(){
     this.alertService.showAlertDanger('Erro ao carregar professores. Tenta novamente mais tarde.');
     //this.bsModalRef = this.modalService.show(AlertModalComponent);
@@ -67,11 +67,15 @@ export class ProfessoresListaComponent implements OnInit {
     result$.asObservable()
     .pipe(
       take(1),
-      switchMap(result => result ? this.service.remove(professor.matricula) : EMPTY)
+      switchMap(result => result ? this.service.remove(professor.matricula) : EMPTY),
+      tap(console.log)
     )
     .subscribe(
       success => {
+
+        this.alertService.showAlertSuccess('Professor removido com sucesso!')
         this.onRefresh()
+
       },
       error => {
         this.alertService.showAlertDanger('Erro ao remover professor. Tente Novamente!')

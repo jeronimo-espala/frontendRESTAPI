@@ -9,11 +9,11 @@ import { Professor } from '../professor';
 })
 
 export class ProfessorResolverGuard implements Resolve<Professor> {
-  
+
   constructor(private service: ProfessoresService) {}
 
   resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<Professor> {
-    
+
     if (route.params && route.params['id']) {
       return this.service.loadByID(route.params['id']);
     }
@@ -24,7 +24,8 @@ export class ProfessorResolverGuard implements Resolve<Professor> {
       nome: null,
       matricula: null,
       area: null,
-      data:null
+      data:null,
+
 
 
     });

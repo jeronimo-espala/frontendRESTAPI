@@ -5,4 +5,5 @@ export interface Professor {
     matricula: string;
     area: string;
     data: Date;
+
 }

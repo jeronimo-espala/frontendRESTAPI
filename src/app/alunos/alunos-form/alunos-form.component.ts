@@ -61,12 +61,12 @@ export class AlunosFormComponent implements OnInit {
 
       console.log('submit');
 
-      let msgSuccess = 'Professor criado com sucesso';
-      let msgError = 'Erro ao criar professor curso, tente novamente!';
+      let msgSuccess = 'Aluno criado com sucesso';
+      let msgError = 'Erro ao criar aluno curso, tente novamente!';
 
       if(this.form.value.id) {
-        msgSuccess = 'Professor atualizado com sucesso';
-        msgError = 'Erro ao atualizar professor, tente novamente!';
+        msgSuccess = 'Aluno atualizado com sucesso';
+        msgError = 'Erro ao atualizar aluno, tente novamente!';
 
       }
 
