@@ -5,10 +5,11 @@ import { DisciplinasRoutingModule } from './disciplinas-routing.module';
 import { DisciplinasListaComponent } from './disciplinas-lista/disciplinas-lista.component';
 import { DisciplinasFormComponent } from './disciplinas-form/disciplinas-form.component';
 import { ReactiveFormsModule } from '@angular/forms';
+import { DisciplinasPesquisaComponent } from './disciplinas-pesquisa/disciplinas-pesquisa.component';
 
 
 @NgModule({
-  declarations: [DisciplinasListaComponent, DisciplinasFormComponent],
+  declarations: [DisciplinasListaComponent, DisciplinasFormComponent, DisciplinasPesquisaComponent],
   imports: [
     CommonModule,
     DisciplinasRoutingModule,

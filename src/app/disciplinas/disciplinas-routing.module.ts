@@ -1,3 +1,4 @@
+import { DisciplinasPesquisaComponent } from './disciplinas-pesquisa/disciplinas-pesquisa.component';
 import { DisciplinaResolverGuard } from './guards/disciplina-resolver.guard';
 import { DisciplinasFormComponent } from './disciplinas-form/disciplinas-form.component';
 import { DisciplinasListaComponent } from './disciplinas-lista/disciplinas-lista.component';
@@ -22,6 +23,9 @@ const routes: Routes = [
       disciplina: DisciplinaResolverGuard
     }
 
+  },
+  {
+    path: 'pesquisa', component: DisciplinasPesquisaComponent
   }
 ];
 

@@ -20,16 +20,16 @@
         <tr>
           <th>Id</th>
           <th>Nome</th>
-          <th>Matricula</th>
-          <th>Disciplina</th>
+          <th>Carga Horária</th>
+          <th>Professor</th>
         </tr>
       </thead>
       <tbody>
         <tr *ngIf="results$ | async as result;">
           <td>{{ result.id }}</td>
           <td>{{ result.nome }}</td>
-          <td>{{ result.matricula }}</td>
-          <td ><p *ngFor="let disciplina of result.disciplinas" > {{ disciplina.nome }}</p></td>
+          <td>{{ result.cargaHoraria }}</td>
+          <td >{{ result.professor.nome }}</td>
           <td></td>
         </tr>
       </tbody>

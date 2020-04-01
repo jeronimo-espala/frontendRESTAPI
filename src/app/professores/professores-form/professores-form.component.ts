@@ -22,12 +22,6 @@ export class ProfessoresFormComponent implements OnInit {
 
   ngOnInit(): void {
 
-    //this.route.params.
-    //pipe(
-    //  map((params: any) => params['id']),
-    //  switchMap(id => this.service.loadByID(id))
-    //)
-    //.subscribe(professor => this.updateForm(professor));
 
     const professor = this.route.snapshot.data['professor'];
 
@@ -41,17 +35,6 @@ export class ProfessoresFormComponent implements OnInit {
     });
 
   }
-
-  //updateForm(professor) {
-  //  this.form.patchValue({
- //     id: professor.id,
-   //   nome: professor.nome,
-     // matricula: professor.matricula,
-      //area: professor.area,
-      //dataNascimento: professor.dataNascimento
-    //});
-  //}
-
 
 
   hasError(field: string) {
@@ -70,7 +53,7 @@ export class ProfessoresFormComponent implements OnInit {
 
       let msgSuccess = 'Professor criado com sucesso';
       let msgError = 'Erro ao criar professor curso, tente novamente!';
-      
+
       if(this.form.value.id) {
         msgSuccess = 'Professor atualizado com sucesso';
         msgError = 'Erro ao atualizar professor, tente novamente!';
@@ -84,31 +67,6 @@ export class ProfessoresFormComponent implements OnInit {
         error => this.modal.showAlertDanger(msgError)
       );
 
-      /*if(this.form.value.id) {
-
-        this.service.update(this.form.value).subscribe(
-          success =>{
-            this.modal.showAlertSuccess('Professor atualizado com sucesso'),
-            this.location.back();
-          },  
-          error => this.modal.showAlertDanger('Erro ao atualizar professor curso, tente novamente!'),
-          () => console.log('update completo')
-        );
-
-
-      }else{
-
-        this.service.create(this.form.value).subscribe(
-          success =>{
-            this.modal.showAlertSuccess('Professor criado com sucesso'),
-            this.location.back();
-          },  
-          error => this.modal.showAlertDanger('Erro ao criar professor curso, tente novamente!'),
-          () => console.log('request completo')
-        );
-
-      }*/
-      
     }
 
   }
@@ -117,6 +75,5 @@ export class ProfessoresFormComponent implements OnInit {
 
     this.submitted = false;
     this.form.reset();
-    //console.log('onCancel');
   }
 }

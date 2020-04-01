@@ -50,14 +50,11 @@ export class DisciplinasListaComponent implements OnInit {
   onDelete(disciplina) {
 
     this.disciplinaSelecionada = disciplina;
-    //this.deleteModalRef = this.modalService.show(this.deleteModal, {class: 'modal-sm'});
     const result$ = this.alertService.showConfirm('Confirmação', 'Tem certeza que deseja remover?')
     result$.asObservable()
     .pipe(
       take(1),
-      //tap(console.log),
       switchMap(result => result ? this.service.remove(disciplina.id) : EMPTY),
-      //tap(console.log)
     )
     .subscribe(
       success => {

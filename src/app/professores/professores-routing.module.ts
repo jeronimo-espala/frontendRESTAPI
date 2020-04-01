@@ -1,3 +1,4 @@
+import { ProfessoresPesquisaComponent } from './professores-pesquisa/professores-pesquisa.component';
 import { ProfessorResolverGuard } from './guards/professor-resolver.guard';
 import { ProfessoresFormComponent } from './professores-form/professores-form.component';
 import { ProfessoresListaComponent } from './professores-lista/professores-lista.component';
@@ -9,8 +10,8 @@ const routes: Routes = [
   {
     path: '', component: ProfessoresListaComponent
   },
-  { 
-    path: 'novo', component: ProfessoresFormComponent, 
+  {
+    path: 'novo', component: ProfessoresFormComponent,
     resolve: {
       professor: ProfessorResolverGuard
     }
@@ -21,6 +22,9 @@ const routes: Routes = [
       professor: ProfessorResolverGuard
     }
 
+  },
+  {
+    path: 'pesquisa', component: ProfessoresPesquisaComponent
   }
 ];
 

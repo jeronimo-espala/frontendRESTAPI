@@ -14,10 +14,6 @@ import { catchError, take, switchMap } from 'rxjs/operators';
 })
 export class AlunosListaComponent implements OnInit {
 
-  //alunos: Curso[];
-
-  //bsModalRef: BsModalRef;
-
   alunos$: Observable<Aluno[]>;
   error$ = new Subject<boolean>();
 
@@ -25,11 +21,9 @@ export class AlunosListaComponent implements OnInit {
 
   constructor(private service: AlunosService,private alertService: AlertModalService,
     private router: Router, private route: ActivatedRoute ) {}
-  //private modalService: BsModalService) { }
 
   ngOnInit(): void {
-    //this.service.list().
-    //subscribe(dados => this.alunos = dados);
+
     this.onRefresh();
 
   }
@@ -40,7 +34,6 @@ export class AlunosListaComponent implements OnInit {
     .pipe(
       catchError( error => {
         console.error(error);
-        //this.error$.next(true);
         this.handleError();
         return empty();
 
@@ -51,9 +44,6 @@ export class AlunosListaComponent implements OnInit {
 
   handleError(){
     this.alertService.showAlertDanger('Erro ao carregar alunos. Tenta novamente mais tarde.');
-    //this.bsModalRef = this.modalService.show(AlertModalComponent);
-    //this.bsModalRef.content.type = 'danger';
-    //this.bsModalRef.content.message = 'Erro ao carregar alunos. Tenta novamente mais tarde.';
   }
 
   onEdit(id) {
@@ -65,7 +55,6 @@ export class AlunosListaComponent implements OnInit {
   onDelete(aluno) {
 
     this.alunoSelecionado = aluno;
-    //this.deleteModalRef = this.modalService.show(this.deleteModal, {class: 'modal-sm'});
     const result$ = this.alertService.showConfirm('Confirmação', 'Tem certeza que deseja remover?')
     result$.asObservable()
     .pipe(

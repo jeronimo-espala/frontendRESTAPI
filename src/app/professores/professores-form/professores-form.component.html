@@ -31,16 +31,16 @@
         </div>
         <div class="col-md-2 mb-3">
             <label for="area">Área de Atuação</label>
-            <input type="text" class="form-control" id="area" placeholder="Área" formControlName="area" 
+            <input type="text" class="form-control" id="area" placeholder="Área" formControlName="area"
             [ngClass]="{ 'is-invalid': submitted && hasError('area')}" />
             <div class="invalid-feedback" *ngIf="hasError('area') && hasError('area')['maxlength']">
                 Área de atuação precisa ter no máximo {{ hasError('area')['maxlength'].requiredLength }} caracteres.
             </div>
-            
+
         </div>
         <div class="col-md-2 mb-3">
             <label for="dataNascimento">Data Nascimento</label>
-            <input type="date" class="form-control" id="dataNascimento" placeholder="Data Nascimento" formControlName="dataNascimento" 
+            <input type="date" class="form-control" id="dataNascimento" placeholder="Data Nascimento" formControlName="dataNascimento"
             [ngClass]="{ 'is-invalid': submitted && hasError('dataNascimento')}"/>
             <div class="invalid-feedback" *ngIf="hasError('dataNascimento') && hasError('dataNascimento')['required']">
                 Por favor informe uma data.
